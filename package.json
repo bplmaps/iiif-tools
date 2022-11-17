@@ -10,10 +10,10 @@
     "dev": "parcel src/index.html",
     "build": "rm -rf ./dist/* && parcel build src/index.html --public-url '.' ",
     "sync": "rsync -r -a -v -e ssh --delete dist/ geoservices@$GEOSERVICES_IP:/var/www/geoservices/iiif-tools"
-
   },
   "dependencies": {
     "bulma": "^0.9.0",
+    "express": "^4.18.2",
     "ol": "^6.3.1",
     "v-clipboard": "^2.2.3",
     "vue": "^2.6.11",

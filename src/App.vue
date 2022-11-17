@@ -1,4 +1,3 @@
-
 <template>
   <section id="main">
     <div class="container is-fluid">
@@ -393,7 +392,7 @@ export default Vue.extend({
     });
   },
 
-  data: function () {
+  data: function() {
     return {
       state: "initial",
       error: false,
@@ -413,13 +412,13 @@ export default Vue.extend({
   },
 
   computed: {
-    lmecObjectUrl: function () {
+    lmecObjectUrl: function() {
       return `https://collections.leventhalmap.org/search/${this.commonwealthObjectId}`;
     },
-    dcObjectUrl: function () {
+    dcObjectUrl: function() {
       return `https://www.digitalcommonwealth.org/search/${this.commonwealthObjectId}`;
     },
-    arkLink: function () {
+    arkLink: function() {
       if (!this.manifest.metadata) {
         return "";
       } else {
@@ -435,21 +434,26 @@ export default Vue.extend({
     },
 
     extentCoordsRounded: function() {
-      return this.extentCoords.map(d=>Math.round(d));
-    },  
+      return this.extentCoords.map((d) => Math.round(d));
+    },
 
     extentCoordsIIIF: function() {
-      let c = [this.extentCoords[0],this.extentCoords[3] * -1,this.extentCoords[2] - this.extentCoords[0],this.extentCoords[1] * -1 - this.extentCoords[3] * -1];
-      return c.map(d=>Math.round(d));
-    }
+      let c = [
+        this.extentCoords[0],
+        this.extentCoords[3] * -1,
+        this.extentCoords[2] - this.extentCoords[0],
+        this.extentCoords[1] * -1 - this.extentCoords[3] * -1,
+      ];
+      return c.map((d) => Math.round(d));
+    },
 
-    loadedImgIIIF: function () {
+    loadedImgIIIF: function() {
       return this.manifest.sequences && this.loadedImg.length > 0
         ? this.manifest.sequences[this.loadedImg[0]].canvases[this.loadedImg[1]]
             .images[this.loadedImg[2]].resource.service["@id"]
         : "";
     },
-    resolution: function () {
+    resolution: function() {
       if (this.imgResolutionType === "full") {
         return "full";
       } else if (this.imgResolutionType === "Maximum height") {
@@ -460,7 +464,7 @@ export default Vue.extend({
         return "pct:" + this.imgResolutionVariable;
       }
     },
-    uncroppedImage: function () {
+    uncroppedImage: function() {
       return (
         this.loadedImgIIIF +
         "/" +
@@ -472,7 +476,7 @@ export default Vue.extend({
         ".jpg"
       );
     },
-    croppedImage: function () {
+    croppedImage: function() {
       return (
         this.loadedImgIIIF +
         "/" +
@@ -493,46 +497,56 @@ export default Vue.extend({
   },
 
   methods: {
-    resolveEnteredUrl: function () {
+    resolveEnteredUrl: function() {
       this.state = "loading";
       this.error = false;
 
-      const re = /commonwealth:[^//]+/;
+      const re = /search\/commonwealth:[^//]+/;
       const match = re.exec(this.enteredUrl);
-
+      const re2 = /archive.org\/details\/[^//]+/;
+      const match2 = re2.exec(this.enteredUrl);
+      const re3 = /2\/commonwealth:[^//]+/;
+      const match3 = re3.exec(this.enteredUrl);
 
       if (match) {
         this.commonwealthObjectId = match[0];
-        this.sourceType = 'commonwealth';
-        this.manifestUrl = `https://www.digitalcommonwealth.org/search/${match[0]}/manifest.json`;
-      } else {
-
-              const re2 = /archive.org\/details\/[^//]+/;
-              const match2 = re2.exec(this.enteredUrl);
-
-              if(match2) {
-                  this.sourceType = 'external';
-                  this.manifestUrl = `https://iiif.archivelab.org/iiif/${match2[0].split("/")[2]}/manifest.json`;
-
-              } else {
-                  this.sourceType = 'external';
-                  this.manifestUrl = this.enteredUrl;
-              }
-
+        this.sourceType = "commonwealth";
+        this.manifestUrl = `https://www.digitalcommonwealth.org/${match[0]}/manifest.json`;
+        this.getManifest();
       }
-      this.getManifest();
-
-
+      else if (match2) {
+        this.sourceType = "external";
+        this.manifestUrl = `https://iiif.archivelab.org/iiif/${match2[0].split("/")[2]}/manifest.json`;
+        this.getManifest();          
+      } else if (match3) {
+        fetch(`https://collections.leventhalmap.org/search/${match3[0].slice(2)}.json`)
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data)
+                const uri =
+                  data["response"]["document"]["is_file_set_of_ssim"][0];
+                this.sourceType = "commonwealth";
+                this.manifestUrl = `https://www.digitalcommonwealth.org/search/${uri}/manifest.json`;
+                this.commonwealthObjectId = uri;
+                this.getManifest();
+            });            
+      } else {
+        this.sourceType = "external";
+        this.manifestUrl = this.enteredUrl;
+      }
     },
-    getManifest: function () {
+   
+    getManifest: function() {
       //  Edit this pattern for different mappings from collections ID to Manifest
       fetch(this.manifestUrl)
         .then((r) => r.json())
         .then((d) => {
+          console.log(d)
           this.manifest = d;
           this.manifestLoaded = true;
         })
         .catch((e) => {
+          console.log(e)
           this.state = "error";
           this.error = true;
           this.errorMessage =
@@ -540,7 +554,7 @@ export default Vue.extend({
         });
     },
 
-    loadImage: function (s, c, i) {
+    loadImage: function(s, c, i) {
       this.loadedImg = [s, c, i];
       this.state = "imageLoaded";
       this.loadIIIFLayer(this.loadedImgIIIF + "/info.json");
