@@ -533,6 +533,7 @@ export default Vue.extend({
       } else {
         this.sourceType = "external";
         this.manifestUrl = this.enteredUrl;
+        this.getManifest();
       }
     },
    
