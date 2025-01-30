@@ -120,7 +120,7 @@
             Sequence {{ seqIndex }}
             <ul>
               <li v-for="(canvas, canIndex) in sequence.canvases">
-                Canvas {{ canIndex }} ({{ canvas.height }} ×{{ canvas.width }})
+                Canvas {{ canIndex }} ({{ canvas.height }} ×{{ canvas.width }}) <span class="is-family-monospace tag">{{  canvas['@id'] }}</span>
 
                 <ul>
                   <li v-for="(image, imgIndex) in canvas.images">
