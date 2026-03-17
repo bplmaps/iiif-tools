@@ -171,3 +171,151 @@
   margin-top: 0.75rem;
   font-style: italic;
 }
+
+/* ── Landing ── */
+.landing {
+  max-width: 680px;
+  margin: 4rem auto 2rem;
+  padding: 0 1.5rem;
+}
+
+.landing-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #68d391;
+  margin-bottom: 0.5rem;
+  background-color: #1a202c;
+  padding: 4px;
+  border-radius: 0.5em;
+}
+
+.landing-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #1a202c;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.landing-sub {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.landing-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-left: 2px solid #e2e8f0;
+  margin-left: 1rem;
+}
+
+.landing-step {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0 0 2rem 1.5rem;
+  position: relative;
+}
+
+.landing-step::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #68d391;
+}
+
+.step-num {
+  font-size: 0.65rem;
+  font-weight: 800;
+  font-family: monospace;
+  color: #a0aec0;
+  letter-spacing: 0.05em;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.3rem;
+}
+
+.step-desc {
+  font-size: 0.85rem;
+  color: #718096;
+  line-height: 1.55;
+}
+
+.step-desc code {
+  background: #edf2f7;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.82em;
+  color: #2d3748;
+}
+
+.step-example {
+  margin-top: 0.75rem;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+}
+
+.example-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.example-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: #718096;
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+  flex-shrink: 0;
+}
+
+.example-row:last-child .example-tag {
+  background: #48bb78;
+}
+
+.example-url {
+  font-family: monospace;
+  color: #4a5568;
+  word-break: break-all;
+}
+
+.example-arrow {
+  color: #a0aec0;
+  font-size: 0.85rem;
+  padding: 0.2rem 0;
+}
+
+.landing-footer {
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.8rem;
+  color: #a0aec0;
+}
+
+.landing-footer a {
+  color: #4a5568;
+  text-decoration: underline;
+}
