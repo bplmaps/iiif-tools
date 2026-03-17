@@ -1,0 +1,173 @@
+/* ── Nav search bar ── */
+.lmec-nav .nav-inner {
+  display: flex;
+  gap: 1rem;
+}
+.nav-search {
+  display: flex;
+  align-items: left;
+  gap: 0.4rem;
+  flex: 1;
+  max-width: 500px;
+}
+.nav-input {
+  flex: 1;
+  height: 34px;
+  padding: 0 0.65rem;
+  border: 1px solid #718096;
+  border-radius: 4px;
+  background: #2d3748;
+  color: #e2e8f0;
+  font-size: 0.82rem;
+  outline: none;
+}
+.nav-input::placeholder { color: #718096; }
+.nav-input:focus { border-color: #68d391; }
+.nav-btn {
+  height: 34px;
+  padding: 0 0.85rem;
+  border: none;
+  border-radius: 4px;
+  background: #48bb78;
+  color: #1a202c;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nav-btn:hover { background: #68d391; }
+
+/* ── Section heading ── */
+.section-heading {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #4a5568;
+  margin-bottom: 0.6rem;
+}
+
+/* ── Object info compact rows ── */
+.url-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+.url-label { white-space: nowrap; flex-shrink: 0; font-size: 0.75rem !important; }
+.url-value { flex: 1; font-size: 0.75rem !important; font-family: monospace; }
+
+/* ── Image + map side-by-side layout ── */
+.image-map-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.image-map-layout.has-image {
+  grid-template-columns: 340px 1fr;
+}
+@media (max-width: 900px) {
+  .image-map-layout.has-image { grid-template-columns: 1fr; }
+}
+
+.controls-panel,
+.map-panel {
+  min-width: 0;
+}
+
+/* ── Compact control rows ── */
+.compact-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+.compact-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #718096;
+  white-space: nowrap;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+.compact-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+.compact-inputs .input { flex: 1; min-width: 0; font-size: 0.72rem !important; font-family: monospace; }
+
+.compact-section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a0aec0;
+  margin: 0.6rem 0 0.3rem;
+}
+
+/* ── Inline controls (quality, resolution, rotation) ── */
+.inline-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  align-items: flex-end;
+}
+.inline-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+/* ── Rotation slider ── */
+.rotation-control { flex: 1; min-width: 180px; }
+.rotation-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.rotation-slider {
+  flex: 1;
+  accent-color: #3273dc;
+  cursor: pointer;
+}
+.rotation-value {
+  font-size: 0.78rem;
+  font-family: monospace;
+  color: #4a5568;
+  min-width: 36px;
+  text-align: right;
+}
+.rotation-input {
+  width: 58px;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+.rotation-input::-webkit-outer-spin-button,
+.rotation-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.rotation-deg {
+  font-size: 0.78rem;
+  color: #4a5568;
+}
+
+/* ── Map panel ── */
+.map-panel #ol-map {
+  height: 520px;
+  width: 100%;
+  background: #1a202c;
+  border-radius: 4px;
+  margin-top: 0;
+}
+
+/* ── Crop hint ── */
+.crop-hint {
+  font-size: 0.72rem;
+  color: #718096;
+  margin-top: 0.75rem;
+  font-style: italic;
+}

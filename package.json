@@ -1,32 +1,26 @@
 {
   "name": "iiif-tools",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "rm -rf ./dist/* && parcel build src/index.html --public-url '.' ",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "sync": "rsync -r -a -v -e ssh --delete dist/ geoservices@$GEOSERVICES_IP:/var/www/geoservices/iiif-tools"
   },
   "dependencies": {
-    "bulma": "^0.9.0",
-    "express": "^4.18.2",
-    "ol": "^6.3.1",
-    "v-clipboard": "^2.2.3",
-    "vue": "^2.6.11",
-    "vue-hot-reload-api": "^2.3.4"
+    "bulma": "^0.9.4",
+    "ol": "^8.2.0",
+    "vue": "^3.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
-    "@vue/component-compiler-utils": "^3.1.2",
-    "cssnano": "^4.1.10",
-    "parcel-bundler": "^1.12.4",
-    "sass": "^1.26.9",
-    "typescript": "^3.9.5",
-    "vue-template-compiler": "^2.6.11"
+    "@vitejs/plugin-vue": "^5.0.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.1.0",
+    "vue-tsc": "^2.0.0"
   }
 }
