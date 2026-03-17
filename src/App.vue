@@ -24,6 +24,47 @@
     </nav>
 
     <section id="main">
+      <!-- ── Landing ── -->
+      <section class="landing" v-if="!manifestLoaded && !error">
+        <div class="landing-hero">
+          <h1 class="landing-title">IIIF Image Tools</h1>
+          <p class="landing-sub">Crop, transform, and share map images directly from any IIIF manifest — no downloads required.</p>
+        </div>
+
+        <div class="landing-steps">
+          <div class="landing-step">
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <div class="step-title">Find a IIIF manifest URL</div>
+              <div class="step-desc">
+                If you're using an object Digital Commonwealth or LMEC Collections,
+                you can just paste the link to the digital collection record
+              </div>
+            </div>
+          </div>
+
+          <div class="landing-step">
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <div class="step-title">Paste it in the bar above</div>
+              <div class="step-desc">
+                Works with any public IIIF manifest! If it doesn't, contact us at <code>info@leventhalmap.org</code>, and we'll fix it
+              </div>
+            </div>
+          </div>
+
+          <div class="landing-step">
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <div class="step-title">Explore &amp; extract</div>
+              <div class="step-desc">
+                Select a canvas, adjust size and quality, draw a crop region, and copy the resulting IIIF image URL
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ── Error ── -->
       <div class="container is-fluid" v-if="error">
         <div class="notification is-warning is-light">{{ errorMessage }}</div>
@@ -174,7 +215,7 @@
               </div>
             </div>
 
-            <p class="crop-hint">Shift + drag on the map to select a crop region</p>
+            <p class="crop-hint">Shift + drag on the image to select a crop region</p>
           </div>
 
           <!-- Right panel: map -->
@@ -433,6 +474,19 @@ function resolveEnteredUrl() {
   error.value = false
   manifest.value = null
   manifestLoaded.value = false
+  loadedImg.value = []
+  loadedCanvasIndex.value = null
+  extentCoords.value = [0, 0, 0, 0]
+  imgRotation.value = 0
+
+  // Destroy the OL map so initMap() re-attaches to the fresh DOM element
+  // that appears after manifestLoaded flips back to true
+  if (olMap) {
+    olMap.setTarget(undefined)
+    olMap = null
+    olLayer = null
+    olExtent = null
+  }
 
   const url = enteredUrl.value.trim()
 
@@ -653,12 +707,18 @@ function initMap() {
     if (event.key === 'Shift') olExtent!.setActive(true)
   })
   window.addEventListener('keyup', (event) => {
-    if (event.key === 'Shift') olExtent!.setActive(false)
+    if (event.key === 'Shift') {
+      olExtent!.setActive(false)
+      // If the user shift+clicked without dragging, OL clears the extent but
+      // extentchanged doesn't fire — poll it once on key release to sync state
+      const ext = olExtent!.getExtent()
+      extentCoords.value = ext ?? [0, 0, 0, 0]
+    }
   })
 
   olExtent.on('extentchanged', () => {
     const ext = olExtent!.getExtent()
-    if (ext) extentCoords.value = ext
+    extentCoords.value = ext ?? [0, 0, 0, 0]
   })
 }
 

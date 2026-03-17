@@ -4,6 +4,10 @@ Web tool designed for the Leventhal Map & Education Center to access various III
 
 It will theoretically work with any IIIF Manifest, but it's designed to consume LMEC Digital Collections and Digital Commonwealth URLs.
 
-In action: <https://geoservices.leventhalmap.org/iiif-tools/>
+In action: <https://iiif-tools.leventhal.center>
+
+# Build, deploy, and develop
+
+## 
 
 
