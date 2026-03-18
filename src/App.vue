@@ -37,7 +37,7 @@
             <div class="step-body">
               <div class="step-title">Find a IIIF manifest URL</div>
               <div class="step-desc">
-                If you're using an object Digital Commonwealth or LMEC Collections,
+                If you're using an object from Digital Commonwealth or LMEC Collections,
                 you can just paste the link to the digital collection record
               </div>
             </div>
